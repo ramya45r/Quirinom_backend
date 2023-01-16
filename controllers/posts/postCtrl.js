@@ -76,22 +76,7 @@ const fetchPostCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//----------search post-------------------------------------//
-const searchPostController = expressAsyncHandler(async (req, res) => {
-  const query = req.query.q
-  try {
-    const posts = await Post.find({
-      $or: [
-        { title: { $regex: new RegExp("^" + query + ".*", "i") } },
-        { description: { $regex: new RegExp("^" + query + ".*", "i") } },
-        { category: { $regex: new RegExp("^" + query + ".*", "i") } },
-      ],
-    })
-    res.status(200).json(posts)
-  } catch (error) {
-    throw new Error(error.message)
-  }
-})
+
 //--------------Update post --------------------------------//
 const updatePostCtrl = expressAsyncHandler(async (req, res) => {
   console.log(req.user);
@@ -142,7 +127,4 @@ module.exports = {
   fetchPostCtrl,
   updatePostCtrl,
   deletePostCtrl,
-  searchPostController,
- 
-  
 };
